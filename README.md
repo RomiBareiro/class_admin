@@ -35,6 +35,8 @@ This project aims to create a system to manage acrobatics classes, calculate mon
 ├── docker-compose.yml    # Service orchestration
 └── main.go               # Application entry point
 ```
+## DB relationship diagram
+![image](https://github.com/user-attachments/assets/42cce94f-2cdb-42cf-aea4-3539b0c37265)
 
 ## Initial Setup
 1. **Clone the repository:**
@@ -61,3 +63,6 @@ docker-compose up --build
 
 ## Contribution
 Contributions are welcome! Fork the repository or open an issue with suggestions or bug reports.
+
+
+
