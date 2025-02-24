@@ -1,4 +1,4 @@
--- Insertar estudiantes
+-- default students
 INSERT INTO
   students (user_name, email)
 VALUES
@@ -14,19 +14,19 @@ VALUES
     'Pedro Martínez',
     'pedro.martinez@email.com',
     '1234567890',
-    ARRAY['Tela', 'Acro']
+    ARRAY['Tela'::class_title, 'Acro'::class_title]
   ),
   (
     'Laura Fernández',
     'laura.fernandez@email.com',
     '0987654321',
-    ARRAY['Danza Aerea']
+    ARRAY['Danza Aerea'::class_title]
   ),
   (
     'Marta Gómez',
     'marta.gomez@email.com',
     '1122334455',
-    ARRAY['Pole', 'Danza Aerea']
+    ARRAY['Pole'::class_title, 'Danza Aerea'::class_title]
   );
 
 -- Default classes
@@ -120,7 +120,7 @@ VALUES
       FROM
         classes
       WHERE
-        title = 'Tela'
+        title = 'Tela'::class_title
     )
   ),
   (
@@ -138,7 +138,7 @@ VALUES
       FROM
         classes
       WHERE
-        title = 'Acro'
+        title = 'Acro'::class_title
     )
   ),
   (
@@ -156,7 +156,7 @@ VALUES
       FROM
         classes
       WHERE
-        title = 'Pole'
+        title = 'Pole'::class_title
     )
   );
 
@@ -186,9 +186,9 @@ VALUES
       FROM
         classes
       WHERE
-        title = 'Tela'
+        title = 'Tela'::class_title
     ),
-    'Efectivo',
+    'Efectivo'::payment_type,
     100.00,
     '2025-03-01 10:00:00',
     '2025-03-01 10:00:00'
@@ -208,9 +208,9 @@ VALUES
       FROM
         classes
       WHERE
-        title = 'Acro'
+        title = 'Acro'::class_title
     ),
-    'Transferencia',
+    'Transferencia'::payment_type,
     150.00,
     '2025-03-01 12:00:00',
     NULL
@@ -230,7 +230,7 @@ VALUES
       FROM
         classes
       WHERE
-        title = 'Pole'
+        title = 'Pole'::class_title
     ),
     'Mercadopago',
     120.00,
@@ -240,11 +240,11 @@ VALUES
 
 -- Insert some promotions
 INSERT INTO
-  promotions (class_count, price, payment_type)
+  promotions (class_count, promo_name, price, payment_type)
 VALUES
-  (3, '3 CLASES CASH', 600.00, 'Efectivo'), -- 3 classes, Cash payment
-  (4, '4 CLASES TRANSFER', 750.00, 'Transferencia'), -- 4 classes, Transfer payment
-  (8, '8 CLASES MP', 1500.00, 'Mercadopago');
+  (3, '3 CLASES CASH', 600.00, 'Efectivo'::payment_type), -- 3 classes, Cash payment
+  (4, '4 CLASES TRANSFER', 750.00, 'Transferencia'::payment_type), -- 4 classes, Transfer payment
+  (8, '8 CLASES MP', 1500.00, 'Mercadopago'::payment_type);
 
 -- 8 classes, MercadoPago payment
 -- Insert a payment with a promotion
@@ -265,7 +265,7 @@ VALUES
       FROM
         students
       WHERE
-        email = 'estudiante@email.com'
+        email = 'carlos.garcia@email.com'
     ), -- Student
     (
       SELECT
@@ -273,14 +273,14 @@ VALUES
       FROM
         classes
       WHERE
-        title = 'Tela'
+        title = 'Tela'::class_title
         AND teacher_id = (
           SELECT
             id
           FROM
             teachers
           WHERE
-            full_name = 'Profesor X'
+            full_name = 'Pedro Martínez'
         )
     ), -- Class
     (
@@ -290,7 +290,7 @@ VALUES
         promotions
       WHERE
         class_count = 4
-        AND payment_type = 'Efectivo'
+        AND payment_type = 'Efectivo'::payment_type
     ), -- Promotion (4 classes, Cash payment)
     'Efectivo', -- Payment type
     600.00, -- Paid amount (e.g., discounted for cash payment)
