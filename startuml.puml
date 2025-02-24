@@ -1,0 +1,85 @@
+@startuml
+
+entity students {
+    *id : UUID
+    user_name : VARCHAR(255)
+    email : VARCHAR(255)
+    created_at : TIMESTAMP
+    updated_at : TIMESTAMP
+}
+
+entity teachers {
+    *id : UUID
+    full_name : VARCHAR(255)
+    email : VARCHAR(255)
+    phone : VARCHAR(20)
+    specialties : class_title[]
+    created_at : TIMESTAMP
+    updated_at : TIMESTAMP
+}
+
+entity classes {
+    *id : UUID
+    title : class_title
+    capacity : INT
+    duration : INTERVAL
+    days : VARCHAR[]
+    start_time : TIME
+    teacher_id : UUID
+    created_at : TIMESTAMP
+    updated_at : TIMESTAMP
+}
+
+entity subscriptions {
+    *id : UUID
+    student_id : UUID
+    class_id : UUID
+    created_at : TIMESTAMP
+    updated_at : TIMESTAMP
+}
+
+entity payments {
+    *id : UUID
+    student_id : UUID
+    class_id : UUID
+    promotion_id : UUID
+    payment_type : payment_type
+    amount : NUMERIC(10, 2)
+    due_date : TIMESTAMP
+    paid_date : TIMESTAMP
+    paid_on_time : BOOLEAN
+    created_at : TIMESTAMP
+    updated_at : TIMESTAMP
+}
+
+entity promotions {
+    *id : UUID
+    class_count : INT
+    promo_name : VARCHAR(255)
+    price : NUMERIC(10, 2)
+    payment_type : payment_type
+    created_at : TIMESTAMP
+    updated_at : TIMESTAMP
+}
+
+entity blitz_promotions {
+    *id : UUID
+    student_id : UUID
+    promotion_id : UUID
+    payment_type : payment_type
+    purchase_date : TIMESTAMP
+    expiration_date : TIMESTAMP
+}
+
+students ||--o{ subscriptions : ""
+teachers ||--o{ classes : ""
+classes ||--o{ subscriptions : ""
+students ||--o{ payments : ""
+classes ||--o{ payments : ""
+promotions ||--o{ payments : ""
+students ||--o{ blitz_promotions : ""
+promotions ||--o{ blitz_promotions : ""
+
+@enduml
+
+
