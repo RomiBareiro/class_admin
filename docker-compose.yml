@@ -10,19 +10,13 @@ services:
     ports:
       - "5435:5432"
     volumes:
-      - ./database/migrations:/docker-entrypoint-initdb.d  
+      - ./database/migrations:/docker-entrypoint-initdb.d
 
-  app:
-    build: 
-      context: .
-      dockerfile: Dockerfile
-    container_name: air-verse
+  air-verse:
+    build: .
     ports:
       - "8080:8080"
-    environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
-      - POSTGRES_SSL_MODE=${POSTGRES_SSL_MODE}
-    depends_on:
-      - postgres
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: air

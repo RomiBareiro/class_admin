@@ -2,3 +2,6 @@
 
 .env
 .air.toml
+Dockerfile
+.vscode/settings.json
+tmp/build-errors.log

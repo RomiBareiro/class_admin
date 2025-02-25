@@ -20,5 +20,6 @@
                 }
             }
         ]
-    }
+    },
+   "DockerRun.DisableDockerrc": true
 }
